@@ -428,6 +428,21 @@ input[type="submit"]:hover {
   text-align: center;
 }
 
+.countryButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.countryButton:hover {
+  background-color: #3e8e41;
+}
+
 
 @media (max-width: 426px) {
   .message-container {

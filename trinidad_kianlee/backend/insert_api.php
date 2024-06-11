@@ -1,5 +1,5 @@
 <?php
-function insertMovies($servername, $username, $password, $dbname, $data) {
+function insertMovie($servername, $username, $password, $dbname, $data) {
     $connect = mysqli_connect($servername, $username, $password, $dbname);
     if (!$connect) {
         die(json_encode(["error" => "Connection failed: " . mysqli_connect_error()]));

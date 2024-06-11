@@ -26,7 +26,10 @@ function fetchMovies() {
                 <td>${movie.rating}</td>
                 <td>
                     <button onclick="deleteMovie(${movie.id})">Delete</button>
-                    <button onclick="editMovie(${movie.id}, '${movie.movie_name}', '${movie.cast}', '${movie.release_date}', '${movie.genre}', '${movie.rating}')">Edit</button>
+                    <button onclick="editMovie(${movie.id}, 
+                    '${movie.movie_name}', '${movie.cast}', 
+                    '${movie.release_date}', '${movie.genre}', 
+                    '${movie.rating}')">Edit</button>
                 </td>
             </tr>`;
         tableBody.innerHTML += row;

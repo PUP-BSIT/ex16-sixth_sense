@@ -1,4 +1,5 @@
 <?php
+require_once("rest.php");
 function deleteMovie($servername, $username, $password, $dbname, $id) {
     $connect = mysqli_connect($servername, $username, $password, $dbname);
     if (!$connect) {

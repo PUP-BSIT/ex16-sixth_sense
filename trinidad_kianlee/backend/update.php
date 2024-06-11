@@ -1,4 +1,5 @@
 <?php
+require_once("rest.php");
 function updateMovie($servername, $username, $password, $dbname, $data) {
     $connect = mysqli_connect($servername, $username, $password, $dbname);
     if (!$connect) {

@@ -184,10 +184,46 @@
       </div>
 
       <div class="button-container">
-        <a href="countries.html"><button class="styledButton">Countries</button></a>
+        <a href="countries.html">
+          <button class="styledButton">Countries</button></a>
       </div>
-
     </div>
-  <script src="script.js"></script>
+
+  <div class="opm-artists">
+    <h2>Favorite OPM Artists</h2>
+    <form id="artist_form">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="artist_name" 
+        name="name" required placeholder="Enter artist name" />
+      </div>
+      <div>
+        <label for="genre">Genre</label>
+        <input type="text" id="artist_genre" 
+        name="genre" required placeholder="Enter genre" />
+      </div>
+      <div>
+        <label for="albums">Number of Albums</label>
+        <input type="number" id="artist_albums" 
+        name="albums" required placeholder="Enter number of albums" />
+      </div>
+      <div>
+        <label for="hits">Top Hits</label>
+        <input type="text" id="artist_hits" 
+        name="hits" required placeholder="Enter top hits" />
+      </div>
+      <div>
+        <label for="debut">Debut Year</label>
+        <input type="number" id="artist_debut" 
+        name="debut" required placeholder="Enter debut year" />
+      </div>
+      <button type="button" onclick="createArtist()">Add Artist</button>
+    </form>
+
+    <h3>Artists List</h3>
+    <div id="artists-list"></div>
+  </div>
+
+    <script src="script.js"></script>
   </body>
 </html>

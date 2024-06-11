@@ -15,7 +15,6 @@ document.getElementById("comment").addEventListener('input', validateInput);
 document.getElementById("name").addEventListener('input', validateInput);
 
 
-//-- TESTING --
 document.addEventListener("DOMContentLoaded", function () {
   let nameInput = document.getElementById("name");
   let commentTextarea = document.getElementById("textarea_for_comment");
@@ -128,4 +127,111 @@ function searchCountry() {
       document.getElementById('countryDetails').innerHTML = '<p>An error occurred: ' + error.message + '</p>';
       document.getElementById('sameRegionCountries').innerHTML = '';
     });
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  loadArtists();
+});
+
+async function loadArtists() {
+  try {
+    const response = await fetch('https://memoirverse.site/api/api.php');
+    const artists = await response.json();
+    displayArtists(artists);
+  } catch (error) {
+    console.error('Error loading artists:', error);
+  }
+}
+
+function displayArtists(artists) {
+  const artistsList = document.getElementById('artists-list');
+  artistsList.innerHTML = '';
+
+  artists.forEach(artist => {
+    const artistDiv = document.createElement('div');
+    artistDiv.className = 'artist';
+    artistDiv.innerHTML = `
+      <p><strong>Name:</strong> ${artist.name}</p>
+      <p><strong>Genre:</strong> ${artist.genre}</p>
+      <p><strong>Albums:</strong> ${artist.albums}</p>
+      <p><strong>Top Hits:</strong> ${artist.hits}</p>
+      <p><strong>Debut Year:</strong> ${artist.debut}</p>
+      <button onclick="deleteArtist('${artist.id}')">Delete</button>
+      <button onclick="editArtist('${artist.id}')">Edit</button>
+    `;
+    artistsList.appendChild(artistDiv);
+  });
+}
+
+async function createArtist() {
+  const name = document.getElementById('artist_name').value;
+  const genre = document.getElementById('artist_genre').value;
+  const albums = document.getElementById('artist_albums').value;
+  const hits = document.getElementById('artist_hits').value;
+  const debut = document.getElementById('artist_debut').value;
+
+  const artist = { name, genre, albums, hits, debut };
+
+  try {
+    await fetch('https://memoirverse.site/api/api.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(artist),
+    });
+    loadArtists();
+  } catch (error) {
+    console.error('Error creating artist:', error);
+  }
+}
+
+async function deleteArtist(id) {
+  try {
+    await fetch(`https://memoirverse.site/api/api.php${id}`, {
+      method: 'DELETE',
+    });
+    loadArtists();
+  } catch (error) {
+    console.error('Error deleting artist:', error);
+  }
+}
+
+async function editArtist(id) {
+  const response = await fetch(`https://memoirverse.site/api/api.php${id}`);
+  const artist = await response.json();
+
+  document.getElementById('artist_name').value = artist.name;
+  document.getElementById('artist_genre').value = artist.genre;
+  document.getElementById('artist_albums').value = artist.albums;
+  document.getElementById('artist_hits').value = artist.hits;
+  document.getElementById('artist_debut').value = artist.debut;
+
+  const submitButton = document.querySelector('#artist-form button');
+  submitButton.textContent = 'Update Artist';
+  submitButton.onclick = async function () {
+    const updatedArtist = {
+      name: document.getElementById('artist_name').value,
+      genre: document.getElementById('artist_genre').value,
+      albums: document.getElementById('artist_albums').value,
+      hits: document.getElementById('artist_hits').value,
+      debut: document.getElementById('artist_debut').value,
+    };
+
+    try {
+      await fetch(`https://memoirverse.site/api/api.php{id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedArtist),
+      });
+      loadArtists();
+      submitButton.textContent = 'Add Artist';
+      submitButton.onclick = createArtist;
+    } catch (error) {
+      console.error('Error updating artist:', error);
+    }
+  };
 }

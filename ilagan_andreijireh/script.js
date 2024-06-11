@@ -198,7 +198,6 @@ async function deleteArtist(id) {
 }
 
 async function editArtist(id) {
-  // Fetch the artist details and populate the form for editing
   const response = await fetch(`https://your-api-domain.com/api/opm-artists/${id}`);
   const artist = await response.json();
 

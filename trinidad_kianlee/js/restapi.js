@@ -47,9 +47,7 @@ function insertMovie() {
 
   fetch("https://memoirverse.site/api/rest.php", {
     method: "POST",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ movie_name, cast, release_date, genre, rating }),
   })
     .then((response) => response.json())
@@ -68,9 +66,7 @@ function insertMovie() {
 function deleteMovie(id) {
   fetch("https://memoirverse.site/api/rest.php", {
     method: "DELETE",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id }),
   })
     .then((response) => response.json())
@@ -107,9 +103,7 @@ function updateMovie(id) {
 
   fetch("https://memoirverse.site/api/rest.php", {
     method: "PATCH",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id, movie_name, cast, release_date, genre, rating }),
   })
     .then((response) => response.json())

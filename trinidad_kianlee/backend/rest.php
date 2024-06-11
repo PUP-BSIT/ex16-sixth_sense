@@ -5,7 +5,7 @@ header("Access-Control-Allow-Methods: GET, POST, PATCH, DELETE");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-include 'insert_api.php';
+include 'insert.php';
 include 'update.php';
 include 'delete.php';
 include 'get.php';

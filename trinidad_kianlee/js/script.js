@@ -1,96 +1,139 @@
-let comments = [];
+document.addEventListener('DOMContentLoaded', function() {
+  fetchMovies();
+});
 
-function checkComment() {
-  const userName = document.querySelector("#user_name").value;
-  const userComment = document.querySelector("#user_comment").value;
-  const commentButton = document.querySelector("#comment_button");
-
-  commentButton.disabled = !(userName && userComment);
+function fetchMovies() {
+  fetch("https://memoirverse.site/api/rest.php")
+      .then(response => response.json())
+      .then(data => {
+          let tbody = document.querySelector("#movie_table tbody");
+          tbody.innerHTML = '';
+          data.forEach(movie => {
+              let row = document.createElement("tr");
+              row.innerHTML = `
+                  <td>${movie.movie_name}</td>
+                  <td>${movie.cast}</td>
+                  <td>${movie.release_date}</td>
+                  <td>${movie.genre}</td>
+                  <td>${movie.rating}</td>
+                  <td>
+                      <button onclick="editMovie(${movie.id}, '${movie.movie_name}', '${movie.cast}', '${movie.release_date}', '${movie.genre}', '${movie.rating}')">Edit</button>
+                      <button onclick="deleteMovie(${movie.id})">Delete</button>
+                  </td>
+              `;
+              tbody.appendChild(row);
+          });
+      })
+      .catch(error => console.error('Error fetching movies:', error));
 }
 
-function addComment() {
-  const userName = document.querySelector("#user_name").value;
-  const userComment = document.querySelector("#user_comment").value;
-  const timestamp = new Date().toISOString();
+function insertMovie() {
+  let movie_name = document.getElementById("movie_name").value;
+  let cast = document.getElementById("cast").value;
+  let release_date = document.getElementById("release_date").value;
+  let genre = document.getElementById("genre").value;
+  let rating = document.getElementById("rating").value;
 
-  const comment = {
-    name: userName,
-    text: userComment,
-    date: timestamp,
+  fetch("https://memoirverse.site/api/rest.php", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ 
+          movie_name, 
+          cast, 
+          release_date, 
+          genre, 
+          rating 
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.error) {
+          alert("Error: " + data.error);
+      } else {
+          alert(data.message || "Movie added successfully");
+          fetchMovies();
+          clearForm();
+      }
+  })
+  .catch(error => console.error('Error adding movie:', error));
+}
+
+function deleteMovie(id) {
+  fetch("https://memoirverse.site/api/rest.php", {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ id })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.error) {
+          alert("Error: " + data.error);
+      } else {
+          alert(data.message || "Movie deleted successfully");
+          fetchMovies();
+      }
+  })
+  .catch(error => console.error('Error deleting movie:', error));
+}
+
+function editMovie(id, movie_name, cast, release_date, genre, rating) {
+  document.getElementById("movie_name").value = movie_name;
+  document.getElementById("cast").value = cast;
+  document.getElementById("release_date").value = release_date;
+  document.getElementById("genre").value = genre;
+  document.getElementById("rating").value = rating;
+  document.getElementById("movie_id").value = id;
+  document.getElementById("add_btn").innerText = "Update Movie";
+  document.getElementById("add_btn").onclick = function () {
+      updateMovie(id);
   };
+}
 
-  comments.push(comment);
-  displayComments();
-  clearForm();
+function updateMovie(id) {
+  let movie_name = document.getElementById("movie_name").value;
+  let cast = document.getElementById("cast").value;
+  let release_date = document.getElementById("release_date").value;
+  let genre = document.getElementById("genre").value;
+  let rating = document.getElementById("rating").value;
+
+  fetch("https://memoirverse.site/api/rest.php", {
+      method: "PATCH",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ 
+          id, 
+          movie_name, 
+          cast, 
+          release_date, 
+          genre, 
+          rating 
+      })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.error) {
+          alert("Error: " + data.error);
+      } else {
+          alert(data.message || "Movie updated successfully");
+          fetchMovies();
+          clearForm();
+      }
+  })
+  .catch(error => console.error('Error updating movie:', error));
 }
 
 function clearForm() {
-  document.querySelector("#user_name").value = "";
-  document.querySelector("#user_comment").value = "";
-  document.querySelector("#comment_button").disabled = true;
+  document.getElementById("movie_id").value = "";
+  document.getElementById("movie_name").value = "";
+  document.getElementById("cast").value = "";
+  document.getElementById("release_date").value = "";
+  document.getElementById("genre").value = "";
+  document.getElementById("rating").value = "";
+  document.getElementById("add_btn").innerText = "Add Movie";
+  document.getElementById("add_btn").onclick = insertMovie;
 }
-
-function displayComments() {
-  const commentsList = document.querySelector("#comments_list");
-  commentsList.innerHTML = comments
-    .map(
-      (comment) => `<div class="comment-item">
-      <div>
-        <span class="comment-author">${comment.name}</span>&nbsp;
-        <span class="comment-date">${new Date(comment.date).toLocaleString()}
-      </span>
-      </div>
-      <p class="comment-text">${comment.text}</p></div>`
-    )
-    .join("");
-}
-
-function sortComments(order) {
-  comments.sort((a, b) =>
-    order === "asc"
-      ? new Date(a.date) - new Date(b.date)
-      : new Date(b.date) - new Date(a.date)
-  );
-  displayComments();
-}
-
-function handleSortChange() {
-  const sortOrder = document.querySelector("#sort_dropdown").value;
-  sortComments(sortOrder);
-}
-
-document.getElementById("search_button").addEventListener("click", function (){
-  let country = document.getElementById("country_input").value;
-  fetch("https://restcountries.com/v3.1/name/" + country)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Country not found");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      let countryDetails = document.getElementById("country_details");
-      countryDetails.innerHTML = `<h2>${data[0].name.common}</h2>
-          <img src="${data[0].flags.png}" alt="${data[0].name.common} flag">
-          <p>Capital: ${data[0].capital[0]}</p>
-          <p>Region: ${data[0].region}</p>
-          <p>Subregion: ${data[0].subregion}</p>
-          <p>Population: ${data[0].population}</p>
-          <p>Area: ${data[0].area} sq km</p>`;
-      return data[0].region;
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      if (!data || !Array.isArray(data) || data.length === 0) {
-        console.error("Invalid data");
-        return;
-      }
-
-      let regionCountries = document.getElementById("region_countries");
-      regionCountries.innerHTML = `<h2>Countries in the same region:</h2>`;
-      data.forEach((country) => {
-      regionCountries.innerHTML += `<p>${country.name.common}</p>
-      <img src="${country.flags.png}" alt="${country.name.common} flag">`;
-      });
-    });
-});

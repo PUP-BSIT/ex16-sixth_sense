@@ -443,6 +443,45 @@ input[type="submit"]:hover {
   background-color: #3e8e41;
 }
 
+.opm-artists {
+  background-color: lightcyan;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.opm-artists form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.opm-artists form input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.opm-artists form button {
+  padding: 10px;
+  background-color: #12c790;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.opm-artists #artists-list {
+  margin-top: 20px;
+}
+
+.opm-artists .artist {
+  background-color: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
 @media (max-width: 426px) {
   .message-container {

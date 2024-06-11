@@ -1,6 +1,6 @@
 fetch('https://your-hostinger-server.com/api.php', {
     method: 'GET',
-    // Add any other options you need for your request
+
 })
 .then(response => response.json())
 .then(data => console.log(data))

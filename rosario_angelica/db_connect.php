@@ -1,9 +1,9 @@
 <?php
 
-$host = '127.0.0.1';
-$db = 'vball';
-$user = 'root'; 
-$pass = '';
+$servername = "127.0.0.1:3306";
+$username = "u586757316_sixth_senses";
+$password = "*N5E!z!xo#Z6";
+$dbname = "u586757316_sixth_sense";
 
 $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
 

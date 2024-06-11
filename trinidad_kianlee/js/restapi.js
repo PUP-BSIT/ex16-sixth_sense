@@ -25,8 +25,8 @@ function fetchMovies() {
                 <td>${movie.genre}</td>
                 <td>${movie.rating}</td>
                 <td>
-                    <button onclick="deleteMovies(${movie.id})">Delete</button>
-                    <button onclick="editMovies(${movie.id}, 
+                    <button onclick="deleteMovie(${movie.id})">Delete</button>
+                    <button onclick="editMovie(${movie.id}, 
                     '${movie.movie_name}', '${movie.cast}', 
                     '${movie.release_date}', '${movie.genre}', 
                     '${movie.rating}')">Edit</button>
@@ -63,7 +63,7 @@ function insertMovie() {
     .catch((error) => console.error("Error adding movie:", error));
 }
 
-function deleteMovies(id) {
+function deleteMovie(id) {
   fetch("https://memoirverse.site/api/rest.php", {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -81,7 +81,7 @@ function deleteMovies(id) {
     .catch((error) => console.error("Error deleting movie:", error));
 }
 
-function editMovies(id, movie_name, cast, release_date, genre, rating) {
+function editMovie(id, movie_name, cast, release_date, genre, rating) {
   document.getElementById("movie_name").value = movie_name;
   document.getElementById("cast").value = cast;
   document.getElementById("release_date").value = release_date;

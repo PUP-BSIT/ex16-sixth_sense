@@ -198,7 +198,7 @@ async function deleteArtist(id) {
 }
 
 async function editArtist(id) {
-  const response = await fetch(`https://your-api-domain.com/api/opm-artists/${id}`);
+  const response = await fetch(`https://memoirverse.site/api/api.php${id}`);
   const artist = await response.json();
 
   document.getElementById('artist-name').value = artist.name;

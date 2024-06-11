@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchMovies() {
-  fetch("./backend/rest.php")
+  fetch("https://memoirverse.site/api/rest.php")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -26,10 +26,7 @@ function fetchMovies() {
                 <td>${movie.rating}</td>
                 <td>
                     <button onclick="deleteMovie(${movie.id})">Delete</button>
-                    <button onclick="editMovie(${movie.id}, 
-                    '${movie.movie_name}', 
-                    '${movie.cast}', '${movie.release_date}', 
-                    '${movie.genre}', '${movie.rating}')">Edit</button>
+                    <button onclick="editMovie(${movie.id}, '${movie.movie_name}', '${movie.cast}', '${movie.release_date}', '${movie.genre}', '${movie.rating}')">Edit</button>
                 </td>
             </tr>`;
         tableBody.innerHTML += row;
@@ -45,7 +42,7 @@ function insertMovie() {
   let genre = document.getElementById("genre").value;
   let rating = document.getElementById("rating").value;
 
-  fetch("./backend/rest.php", {
+  fetch("https://memoirverse.site/api/rest.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ movie_name, cast, release_date, genre, rating }),
@@ -64,7 +61,7 @@ function insertMovie() {
 }
 
 function deleteMovie(id) {
-  fetch("./backend/rest.php", {
+  fetch("https://memoirverse.site/api/rest.php", {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id }),
@@ -101,10 +98,10 @@ function updateMovie(id) {
   let genre = document.getElementById("genre").value;
   let rating = document.getElementById("rating").value;
 
-  fetch("./backend/rest.php", {
+  fetch("https://memoirverse.site/api/rest.php", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id, movie_name, cast, release_date, genre, rating}),
+    body: JSON.stringify({ id, movie_name, cast, release_date, genre, rating }),
   })
     .then((response) => response.json())
     .then((data) => {

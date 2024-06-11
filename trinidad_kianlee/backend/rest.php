@@ -11,10 +11,10 @@ include 'update.php';
 include 'delete.php';
 include 'get.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "movies";
+$servername = "127.0.0.1:3306";
+$username = "u586757316_sixth_senses";
+$password = "*N5E!z!xo#Z6";
+$dbname = "u586757316_sixth_sense";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents("php://input"), true);

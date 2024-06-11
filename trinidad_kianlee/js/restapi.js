@@ -38,7 +38,7 @@ function fetchMovies() {
     .catch((error) => console.error("Error fetching movies:", error));
 }
 
-function insertMovie() {
+function insertMovies() {
   let movie_name = document.getElementById("movie_name").value;
   let cast = document.getElementById("cast").value;
   let release_date = document.getElementById("release_date").value;
@@ -65,7 +65,7 @@ function insertMovie() {
     .catch((error) => console.error("Error adding movie:", error));
 }
 
-function deleteMovie(id) {
+function deleteMovies(id) {
   fetch("https://memoirverse.site/api/rest.php", {
     method: "DELETE",
     headers: {
@@ -85,7 +85,7 @@ function deleteMovie(id) {
     .catch((error) => console.error("Error deleting movie:", error));
 }
 
-function editMovie(id, movie_name, cast, release_date, genre, rating) {
+function editMovies(id, movie_name, cast, release_date, genre, rating) {
   document.getElementById("movie_name").value = movie_name;
   document.getElementById("cast").value = cast;
   document.getElementById("release_date").value = release_date;
@@ -94,11 +94,11 @@ function editMovie(id, movie_name, cast, release_date, genre, rating) {
   document.getElementById("movie_id").value = id;
   document.getElementById("add_btn").innerText = "Update Movie";
   document.getElementById("add_btn").onclick = function () {
-    updateMovie(id);
+    updateMovies(id);
   };
 }
 
-function updateMovie(id) {
+function updateMovies(id) {
   let movie_name = document.getElementById("movie_name").value;
   let cast = document.getElementById("cast").value;
   let release_date = document.getElementById("release_date").value;

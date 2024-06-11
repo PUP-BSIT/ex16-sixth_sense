@@ -5,7 +5,7 @@ function deleteMovie($servername, $username, $password, $dbname, $id) {
         die("Connection failed: " . mysqli_connect_error());
     }
     
-    $sql = "DELETE FROM movies WHERE id=$id";
+    $sql = "DELETE FROM movie WHERE id=$id";
     if (!$connect->query($sql)) {
         echo json_encode(["error" => "Error: " . $sql . "<br>" . mysqli_error($connect)]);
     } else {

@@ -69,9 +69,9 @@ function deleteMovie(id) {
   fetch("https://memoirverse.site/api/rest.php", {
     method: "DELETE",
     headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
-    body: JSON.stringify({ id }),
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: id }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -108,9 +108,16 @@ function updateMovie(id) {
   fetch("https://memoirverse.site/api/rest.php", {
     method: "PATCH",
     headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
-    body: JSON.stringify({ id, movie_name, cast, release_date, genre, rating }),
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ 
+      id: id, 
+      movie_name: movie_name, 
+      cast: cast, 
+      release_date: release_date, 
+      genre: genre, 
+      rating: rating 
+    }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -124,6 +131,7 @@ function updateMovie(id) {
     })
     .catch((error) => console.error("Error updating movie:", error));
 }
+
 
 function clearForm() {
   document.getElementById("movie_name").value = "";

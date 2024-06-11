@@ -1,5 +1,5 @@
 <?php
-
+require_once("rest.php");
 function insertMovie($servername, $username, $password, $dbname, $data) {
     $connect = mysqli_connect($servername, $username, $password, $dbname);
 

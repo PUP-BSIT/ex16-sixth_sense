@@ -1,5 +1,5 @@
 <?php
-
+require_once("rest.php");
 function getMovies($servername, $username, $password, $dbname) {
     $connect = mysqli_connect($servername, $username, $password, $dbname);
 

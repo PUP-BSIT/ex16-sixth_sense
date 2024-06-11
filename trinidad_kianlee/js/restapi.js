@@ -38,7 +38,7 @@ function fetchMovies() {
     .catch((error) => console.error("Error fetching movies:", error));
 }
 
-function insertMovies() {
+function insertMovie() {
   let movie_name = document.getElementById("movie_name").value;
   let cast = document.getElementById("cast").value;
   let release_date = document.getElementById("release_date").value;
@@ -47,7 +47,9 @@ function insertMovies() {
 
   fetch("https://memoirverse.site/api/rest.php", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded",
+     },
     body: JSON.stringify({ movie_name, cast, release_date, genre, rating }),
   })
     .then((response) => response.json())
@@ -63,10 +65,12 @@ function insertMovies() {
     .catch((error) => console.error("Error adding movie:", error));
 }
 
-function deleteMovies(id) {
+function deleteMovie(id) {
   fetch("https://memoirverse.site/api/rest.php", {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded",
+     },
     body: JSON.stringify({ id }),
   })
     .then((response) => response.json())
@@ -81,7 +85,7 @@ function deleteMovies(id) {
     .catch((error) => console.error("Error deleting movie:", error));
 }
 
-function editMovies(id, movie_name, cast, release_date, genre, rating) {
+function editMovie(id, movie_name, cast, release_date, genre, rating) {
   document.getElementById("movie_name").value = movie_name;
   document.getElementById("cast").value = cast;
   document.getElementById("release_date").value = release_date;
@@ -94,7 +98,7 @@ function editMovies(id, movie_name, cast, release_date, genre, rating) {
   };
 }
 
-function updateMovies(id) {
+function updateMovie(id) {
   let movie_name = document.getElementById("movie_name").value;
   let cast = document.getElementById("cast").value;
   let release_date = document.getElementById("release_date").value;
@@ -103,7 +107,9 @@ function updateMovies(id) {
 
   fetch("https://memoirverse.site/api/rest.php", {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded",
+     },
     body: JSON.stringify({ id, movie_name, cast, release_date, genre, rating }),
   })
     .then((response) => response.json())

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./style/restapi_style.css" rel="stylesheet" /> 
+    <title>Movie Manager</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Movies</h1>
+        <input type="hidden" id="movie_id">
+        <input type="text" id="movie_name" placeholder="Movie Name">
+        <input type="text" id="cast" placeholder="Cast">
+        <input type="text" id="release_date" placeholder="Release Date">
+        <input type="text" id="genre" placeholder="Genre">
+        <input type="text" id="rating" placeholder="Rating">
+        <button id="add_btn" onclick="insertMovie()">Add Movie</button>
+        <table id="movie_table">
+            <thead>
+                <tr>
+                    <th>Movie Name</th>
+                    <th>Cast</th>
+                    <th>Release Date</th>
+                    <th>Genre</th>
+                    <th>Rating</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script src="./script/restapi.js"></script>
+</body>
+</html>

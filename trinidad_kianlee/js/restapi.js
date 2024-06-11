@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchMovies();
 });
 
-function fetchMovie() {
+function fetchMovies() {
   fetch("https://memoirverse.site/api/rest.php")
     .then((response) => {
       if (!response.ok) {
@@ -25,11 +25,8 @@ function fetchMovie() {
                 <td>${movie.genre}</td>
                 <td>${movie.rating}</td>
                 <td>
-                    <button onclick="deleteMovie(${movie.id})">Delete</button>
-                    <button onclick="editMovie(${movie.id}, 
-                    '${movie.movie_name}', '${movie.cast}', 
-                    '${movie.release_date}', '${movie.genre}', 
-                    '${movie.rating}')">Edit</button>
+                    <button onclick="deleteMovies(${movie.id})">Delete</button>
+                    <button onclick="editMovies(${movie.id}, '${movie.movie_name}', '${movie.cast}', '${movie.release_date}', '${movie.genre}', '${movie.rating}')">Edit</button>
                 </td>
             </tr>`;
         tableBody.innerHTML += row;
@@ -47,9 +44,7 @@ function insertMovie() {
 
   fetch("https://memoirverse.site/api/rest.php", {
     method: "POST",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ movie_name, cast, release_date, genre, rating }),
   })
     .then((response) => response.json())
@@ -58,19 +53,17 @@ function insertMovie() {
         alert("Error: " + data.error);
       } else {
         alert(data.message || "Movie added successfully");
-        fetchMovie();
+        fetchMovies();
         clearForm();
       }
     })
     .catch((error) => console.error("Error adding movie:", error));
 }
 
-function deleteMovie(id) {
+function deleteMovies(id) {
   fetch("https://memoirverse.site/api/rest.php", {
     method: "DELETE",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id }),
   })
     .then((response) => response.json())
@@ -79,13 +72,13 @@ function deleteMovie(id) {
         alert("Error: " + data.error);
       } else {
         alert(data.message);
-        fetchMovie();
+        fetchMovies();
       }
     })
     .catch((error) => console.error("Error deleting movie:", error));
 }
 
-function editMovie(id, movie_name, cast, release_date, genre, rating) {
+function editMovies(id, movie_name, cast, release_date, genre, rating) {
   document.getElementById("movie_name").value = movie_name;
   document.getElementById("cast").value = cast;
   document.getElementById("release_date").value = release_date;
@@ -107,9 +100,7 @@ function updateMovie(id) {
 
   fetch("https://memoirverse.site/api/rest.php", {
     method: "PATCH",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id, movie_name, cast, release_date, genre, rating }),
   })
     .then((response) => response.json())
@@ -118,7 +109,7 @@ function updateMovie(id) {
         alert("Error: " + data.error);
       } else {
         alert(data.message || "Movie updated successfully");
-        fetchMovie();
+        fetchMovies();
         clearForm();
       }
     })

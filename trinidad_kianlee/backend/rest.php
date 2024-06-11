@@ -18,15 +18,15 @@ $dbname = "u586757316_sixth_sense";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents("php://input"), true);
-    insertMovies($servername, $username, $password, $dbname, $data);
+    insertMovie($servername, $username, $password, $dbname, $data);
 } elseif ($_SERVER["REQUEST_METHOD"] == "GET") {
-    getMovies($servername, $username, $password, $dbname);
+    getMovie($servername, $username, $password, $dbname);
 } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     $data = json_decode(file_get_contents("php://input"), true);
-    deleteMovies($servername, $username, $password, $dbname, $data['id']);
+    deleteMovie($servername, $username, $password, $dbname, $data['id']);
 } elseif ($_SERVER["REQUEST_METHOD"] == "PATCH") {
     $data = json_decode(file_get_contents("php://input"), true);
-    updateMovies($servername, $username, $password, $dbname, $data);
+    updateMovie($servername, $username, $password, $dbname, $data);
 } else {
     http_response_code(405);
     echo json_encode(["error" => "Method Not Allowed"]);

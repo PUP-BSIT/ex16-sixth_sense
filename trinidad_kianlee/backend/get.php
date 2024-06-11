@@ -1,12 +1,12 @@
 <?php
 
-function getMovies($servername, $username, $password, $dbname) {
+function getMovie($servername, $username, $password, $dbname) {
     $connect = mysqli_connect($servername, $username, $password, $dbname);
     if (!$connect) {
         die(json_encode(["error" => "Connection failed: " . mysqli_connect_error()]));
     }
     
-    $sql = "SELECT * FROM movie ORDER BY id DESC";
+    $sql = "SELECT * FROM movies ORDER BY id DESC";
     $result = $connect->query($sql);
 
     if (!$result) {

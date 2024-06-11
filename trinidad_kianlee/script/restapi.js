@@ -26,7 +26,10 @@ function fetchMovies() {
                 <td>${movie.rating}</td>
                 <td>
                     <button onclick="deleteMovie(${movie.id})">Delete</button>
-                    <button onclick="editMovie(${movie.id}, '${movie.movie_name}', '${movie.cast}', '${movie.release_date}', '${movie.genre}', '${movie.rating}')">Edit</button>
+                    <button onclick="editMovie(${movie.id}, 
+                    '${movie.movie_name}', 
+                    '${movie.cast}', '${movie.release_date}', 
+                    '${movie.genre}', '${movie.rating}')">Edit</button>
                 </td>
             </tr>`;
         tableBody.innerHTML += row;
@@ -101,7 +104,7 @@ function updateMovie(id) {
   fetch("./backend/rest.php", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id, movie_name, cast, release_date, genre, rating }),
+    body: JSON.stringify({ id, movie_name, cast, release_date, genre, rating}),
   })
     .then((response) => response.json())
     .then((data) => {

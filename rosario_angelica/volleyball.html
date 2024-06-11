@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volleyball</title>
+    <link rel="stylesheet" href="./api_styles.css">
+    <script src="./api_script.js" defer></script>
+</head>
+<body>
+    <div class="section">
+    <h1>Volleyball</h1>
+
+    <h2>Add New Team</h2>
+
+     <form id="create-form">
+        Team: <input type="text" id="v_team" required><br>
+        Coach: <input type="text" id="v_coach" required><br>
+        Players: <input type="text" id="v_players" required><br>
+        Position: <input type="text" id="position" required><br>
+        Championship: <input type="number" id="championship" required><br>
+        <button type="submit">Add Team</button>
+     </form>
+
+     <h2>Teams</h2>
+     <table border="1" id="team-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Team</th>
+                <th>Coach</th>
+                <th>Players</th>
+                <th>Position</th>
+                <th>Championship</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Team rows -->
+        </tbody>
+     </table>
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-const apiUrl = "https://memoirverse.site/gasta-backend/db.php"; 
+const apiUrl = "https://memoirverse.site/gasta_backend";
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchTeams();

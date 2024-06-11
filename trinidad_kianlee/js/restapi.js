@@ -17,7 +17,10 @@ function fetchMovies() {
                   <td>${movie.genre}</td>
                   <td>${movie.rating}</td>
                   <td>
-                      <button onclick="editMovie(${movie.id}, '${movie.movie_name}', '${movie.cast}', '${movie.release_date}', '${movie.genre}', '${movie.rating}')">Edit</button>
+                      <button onclick="editMovie(${movie.id}, 
+                      '${movie.movie_name}', '${movie.cast}', 
+                      '${movie.release_date}', '${movie.genre}', 
+                      '${movie.rating}')">Edit</button>
                       <button onclick="deleteMovie(${movie.id})">Delete</button>
                   </td>
               `;
@@ -34,18 +37,14 @@ function insertMovie() {
   let genre = document.getElementById("genre").value;
   let rating = document.getElementById("rating").value;
 
+  let data = { movie_name, cast, release_date, genre, rating };
+
   fetch("https://memoirverse.site/api/rest.php", {
       method: "POST",
       headers: {
           "Content-Type": "application/json"
       },
-      body: JSON.stringify({ 
-          movie_name, 
-          cast, 
-          release_date, 
-          genre, 
-          rating 
-      })
+      body: JSON.stringify(data)
   })
   .then(response => response.json())
   .then(data => {
@@ -57,7 +56,7 @@ function insertMovie() {
           clearForm();
       }
   })
-  .catch(error => console.error('Error adding movie:', error));
+  .catch(error => console.error("Error adding movie:", error));
 }
 
 function deleteMovie(id) {
@@ -73,20 +72,20 @@ function deleteMovie(id) {
       if (data.error) {
           alert("Error: " + data.error);
       } else {
-          alert(data.message || "Movie deleted successfully");
+          alert(data.message);
           fetchMovies();
       }
   })
-  .catch(error => console.error('Error deleting movie:', error));
+  .catch(error => console.error("Error deleting movie:", error));
 }
 
 function editMovie(id, movie_name, cast, release_date, genre, rating) {
+  document.getElementById("movie_id").value = id;
   document.getElementById("movie_name").value = movie_name;
   document.getElementById("cast").value = cast;
   document.getElementById("release_date").value = release_date;
   document.getElementById("genre").value = genre;
   document.getElementById("rating").value = rating;
-  document.getElementById("movie_id").value = id;
   document.getElementById("add_btn").innerText = "Update Movie";
   document.getElementById("add_btn").onclick = function () {
       updateMovie(id);
@@ -100,19 +99,14 @@ function updateMovie(id) {
   let genre = document.getElementById("genre").value;
   let rating = document.getElementById("rating").value;
 
+  let data = { id, movie_name, cast, release_date, genre, rating };
+
   fetch("https://memoirverse.site/api/rest.php", {
       method: "PATCH",
       headers: {
           "Content-Type": "application/json"
       },
-      body: JSON.stringify({ 
-          id, 
-          movie_name, 
-          cast, 
-          release_date, 
-          genre, 
-          rating 
-      })
+      body: JSON.stringify(data)
   })
   .then(response => response.json())
   .then(data => {
@@ -124,16 +118,16 @@ function updateMovie(id) {
           clearForm();
       }
   })
-  .catch(error => console.error('Error updating movie:', error));
+  .catch(error => console.error("Error updating movie:", error));
 }
 
 function clearForm() {
-  document.getElementById("movie_id").value = "";
-  document.getElementById("movie_name").value = "";
-  document.getElementById("cast").value = "";
-  document.getElementById("release_date").value = "";
-  document.getElementById("genre").value = "";
-  document.getElementById("rating").value = "";
+  document.getElementById("movie_id").value = '';
+  document.getElementById("movie_name").value = '';
+  document.getElementById("cast").value = '';
+  document.getElementById("release_date").value = '';
+  document.getElementById("genre").value = '';
+  document.getElementById("rating").value = '';
   document.getElementById("add_btn").innerText = "Add Movie";
   document.getElementById("add_btn").onclick = insertMovie;
 }

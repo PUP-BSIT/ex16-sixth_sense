@@ -1,6 +1,6 @@
 <?php
 
-function getMovies($servername, $username, $password, $dbname) {
+function getMovie($servername, $username, $password, $dbname) {
     $connect = mysqli_connect($servername, $username, $password, $dbname);
     if (!$connect) {
         die(json_encode(["error" => "Connection failed: " . mysqli_connect_error()]));
